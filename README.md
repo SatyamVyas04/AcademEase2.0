@@ -8,6 +8,7 @@ Welcome to **AcademEase2.0**, a project created by team four.js at the SE Hackat
 -   **Nishita Panchal** ([nishakp3005](https://github.com/nishakp3005))
 -   **Saachi Peswani** ([Saachi30](https://github.com/Saachi30))
 -   **Param Gogia** ([paramgogia](https://github.com/paramgogia))
+-   **Manjiri Chavande** ([CODEX108](https://github.com/CODEX108))
 
 ## Project Overview
 
@@ -33,5 +34,6 @@ Welcome to **AcademEase2.0**, a project created by team four.js at the SE Hackat
 -   [Nishita Panchal](https://www.linkedin.com/in/nishita-panchal/)
 -   [Saachi Peswani](https://www.linkedin.com/in/saachi-peswani-419995258/)
 -   [Param Gogia](https://www.linkedin.com/in/paramgogia/)
+-   [Manjiri Chavande](https://www.linkedin.com/in/manjiri-chavande/)
 
 Thank you for checking out AcademEase2.0! We hope our project enhances your educational experience.
