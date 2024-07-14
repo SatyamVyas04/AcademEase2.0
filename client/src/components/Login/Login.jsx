@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    const { isAuthenticated, loginWithRedirect } = useAuth0();
     const navigate = useNavigate();
-    
-    useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/home');
-        }
-    }, [isAuthenticated, navigate]);
-
     const [rightPanelActive, setRightPanelActive] = useState(false);
+
+    const loginAuth = useGoogleLogin({
+        onSuccess: (codeResponse) => {
+            console.log("Google authentication successful:", codeResponse.code);
+            navigate('/home');
+        },
+        flow: 'auth-code',
+    });
 
     const handleSignUpClick = () => {
         setRightPanelActive(true);
@@ -23,20 +23,14 @@ function Login() {
         setRightPanelActive(false);
     };
 
-    const handleLogin = (connection) => {
-        loginWithRedirect({ connection });
-    };
-
     return (
         <div>
-            <div className={`container ${rightPanelActive ? 'right-panel-active' : ''}`} id="container">
+            <div className={`custom-container ${rightPanelActive ? 'right-panel-active' : ''}`} id="container">
                 <div className="form-container sign-up-container">
                     <form action="#">
                         <h1>Create Account</h1>
                         <div className="social-container">
-                            <a href="#" className="social" onClick={() => handleLogin('facebook')}><i className="fab fa-facebook-f"></i></a>
-                            <a href="#" className="social" onClick={() => handleLogin('google-oauth2')}><i className="fab fa-google-plus-g"></i></a>
-                            <a href="#" className="social" onClick={() => handleLogin('github')}><i className="fab fa-github"></i></a>
+                            <a href="#" className="social" onClick={() => loginAuth()}><i className="fab fa-google-plus-g"></i></a>
                         </div>
                         <span>or use your email for registration</span>
                         <input type="text" placeholder="Name" />
@@ -49,9 +43,7 @@ function Login() {
                     <form action="#">
                         <h1>Sign in</h1>
                         <div className="social-container">
-                            <a href="#" className="social" onClick={() => handleLogin('facebook')}><i className="fab fa-facebook-f"></i></a>
-                            <a href="#" className="social" onClick={() => handleLogin('google-oauth2')}><i className="fab fa-google-plus-g"></i></a>
-                            <a href="#" className="social" onClick={() => handleLogin('github')}><i className="fab fa-github"></i></a>
+                            <a href="#" className="social" onClick={() => loginAuth()}><i className="fab fa-google-plus-g"></i></a>
                         </div>
                         <span>or use your account</span>
                         <input type="email" placeholder="Email" />
