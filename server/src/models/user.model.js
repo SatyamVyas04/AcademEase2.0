@@ -19,15 +19,33 @@ const userSchema = new Schema(
             lowercase: true,
             trim: true,
         },
-        fullname: {
+        password: {
             type: String,
-            required: true,
-            trim: true,
-            index: true,
+            required: [true, "Password is required!"],
+        },
+        passoutYear: {
+            type: String,
+        },
+        college: {
+            type: String,
+        },
+        phoneNo: {
+            type: String,
+        },
+        program: {
+            type: String,
+        },
+        cgpa: {
+            type: String,
+        },
+        academicInterests: {
+            type: [String],
+        },
+        goals: {
+            type: [String],
         },
         avatar: {
-            type: String, //Cloudinary URL
-            required: true,
+            type: String, // Cloudinary URL
         },
         coverImage: {
             type: String, // Cloudinary URL
@@ -38,10 +56,6 @@ const userSchema = new Schema(
                 ref: "Video",
             },
         ],
-        password: {
-            type: String,
-            required: [true, "Password is required!"],
-        },
         refreshToken: {
             type: String,
         },
@@ -51,7 +65,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
     if (this.isModified("password"))
-        this.password = bcrypt.hash(this.password, 8);
+        this.password = await bcrypt.hash(this.password, 8);
     next();
 });
 
@@ -65,7 +79,6 @@ userSchema.methods.generateAccessToken = function () {
             _id: this._id,
             email: this.email,
             username: this.username,
-            fullname: this.fullname,
         },
         process.env.ACCESS_TOKEN_SECRET,
         {

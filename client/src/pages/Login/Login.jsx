@@ -9,12 +9,12 @@ function Login() {
 
     const loginAuth = useGoogleLogin({
         onSuccess: (codeResponse) => {
-            console.log("Google authentication successful:", codeResponse.code);
+            console.log("Google authentication successful:", codeResponse);
             navigate('/home');
         },
         flow: 'auth-code',
     });
-
+    
     const handleSignUpClick = () => {
         setRightPanelActive(true);
     };
