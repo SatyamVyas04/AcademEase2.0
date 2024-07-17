@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/Login/Login.jsx';
-import HomePage from './components/TestHome/HomePage.jsx';
+import Login from './pages/Login/Login.jsx';
+import HomePage from './pages/HomePage/HomePage.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const clientIdAuth = import.meta.env.VITE_AUTH0_CLIENT_ID;
