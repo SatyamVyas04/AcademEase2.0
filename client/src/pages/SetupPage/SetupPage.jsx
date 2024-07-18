@@ -3,6 +3,22 @@ import image from "../../assets/AcademEaseBlue.svg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+const academicInterests = [
+    "REACT",
+    "MERN",
+    "Nodejs",
+    "NEXTjs",
+    "AI/ML",
+    "Cyber Security",
+    "Blockchain",
+    "Cloud computing",
+    "Robotics",
+    "Data Science",
+    "AR/VR",
+    "IoT"
+];
+
+
 const SetupPage = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -154,12 +170,12 @@ const SetupPage = () => {
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                                 <option value="">Select College</option>
-                                <option value="college1">College 1</option>
-                                <option value="college2">College 2</option>
-                                <option value="college3">College 3</option>
-                                <option value="college4">College 4</option>
-                                <option value="college5">College 5</option>
-                                <option value="college6">College 6</option>
+                                <option value="college1">Sardar Patel Institute of Technology</option>
+                                <option value="college2">SVKMs Dwarkadas J. Sanghvi College of Engineering</option>
+                                <option value="college3">Thadomal Shahani Engineering College</option>
+                                <option value="college4">Thakur College of Engineering and Technology</option>
+                                <option value="college5">Veermata Jijabai Technological Institute</option>
+                                <option value="college6">K. J. Somaiya College of Engineering</option>
                             </select>
                         </div>
                     </div>
@@ -172,16 +188,22 @@ const SetupPage = () => {
                             Program of study
                         </label>
                         <div className="mt-1">
-                            <input
+                            <select
                                 id="program"
                                 name="program"
-                                type="text"
                                 autoComplete="program"
                                 required
                                 value={formData.program}
                                 onChange={handleChange}
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
+                            >
+								<option value="">Select Program</option>
+                                <option value="program1">B.Tech</option>
+                                <option value="program2">M.Tech</option>
+                                <option value="program3">MCA</option>
+                                <option value="program4">BSC</option>
+                                <option value="program5">MSC</option>
+							</select>
                         </div>
                     </div>
 
@@ -211,25 +233,25 @@ const SetupPage = () => {
                                 Academic interests
                             </legend>
                             <div className="mt-2 grid grid-cols-6 gap-2">
-                                {Array.from({ length: 12 }, (_, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex items-center"
-                                    >
-                                        <input
-                                            id={`interest${index + 1}`}
-                                            name="interests"
-                                            type="checkbox"
-                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                        />
-                                        <label
-                                            htmlFor={`interest${index + 1}`}
-                                            className="ml-2 block text-sm text-gray-900"
-                                        >
-                                            Interest {index + 1}
-                                        </label>
-                                    </div>
-                                ))}
+							{academicInterests.map((interest, index) => (
+								<div
+									key={index}
+									className="flex items-center"
+								>
+									<input
+										id={`interest${index + 1}`}
+										name="interests"
+										type="checkbox"
+										className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+									/>
+									<label
+										htmlFor={`interest${index + 1}`}
+										className="ml-2 block text-sm text-gray-900"
+									>
+										{interest}
+									</label>
+								</div>
+							))}
                             </div>
                         </fieldset>
                     </div>
