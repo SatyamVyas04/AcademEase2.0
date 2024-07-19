@@ -9,23 +9,27 @@ function Login() {
     const [rightPanelActive, setRightPanelActive] = useState(false);
 
     const loginAuth = useGoogleLogin({
-        onSuccess: async (tokenResponse) => {
+        onSuccess: async (codeResponse) => {
             try {
                 const response = await axios.post('http://localhost:8000/api/auth/google', {
-                    code: tokenResponse.code,
+                    code: codeResponse.code,
                 });
 
-                const { token, user } = response.data;
-                console.log('Google authentication successful:', user);
-                navigate('/home')
-                // handle successful login
+                const { accessToken, refreshToken, user } = response.data;
+
+                // Store tokens in local storage or cookies
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+
+                console.log("Google authentication successful:", user);
+                navigate('/home');
             } catch (error) {
-                console.error('Google authentication failed:', error.response.data.message || error.message);
+                console.error("Google authentication failed:", error);
             }
         },
         flow: 'auth-code',
     });
-
+    
     const handleSignUpClick = () => {
         setRightPanelActive(true);
     };
@@ -35,8 +39,8 @@ function Login() {
     };
 
     return (
-        <div id = "loginForm">
-            <div className={`custom-container ${rightPanelActive ? 'right-panel-active' : ''}`} id="container">
+        <div>
+            <div className={`custom-container ${rightPanelActive ? 'right-panel-active' : ''}`} id="login-container">
                 <div className="form-container sign-up-container">
                     <form action="#">
                         <h1>Create Account</h1>

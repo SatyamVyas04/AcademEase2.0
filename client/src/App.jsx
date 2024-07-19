@@ -4,10 +4,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const clientIdAuth = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
-if (!clientIdAuth) {
-    console.error("Google Client ID is not defined");
-}
-
 function App() {
     return (
         <GoogleOAuthProvider clientId={clientIdAuth}>
