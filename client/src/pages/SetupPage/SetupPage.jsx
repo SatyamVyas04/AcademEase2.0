@@ -3,23 +3,23 @@ import image from "../../assets/AcademEaseBlue.svg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const academicInterests = [
-    "REACT",
-    "MERN",
-    "Nodejs",
-    "NEXTjs",
-    "AI/ML",
-    "Cyber Security",
-    "Blockchain",
-    "Cloud computing",
-    "Robotics",
-    "Data Science",
-    "AR/VR",
-    "IoT"
-];
-
-
 const SetupPage = () => {
+
+	const academicInterests = [
+		"REACT",
+		"MERN",
+		"Nodejs",
+		"NEXTjs",
+		"AI/ML",
+		"Cyber Security",
+		"Blockchain",
+		"Cloud computing",
+		"Robotics",
+		"Data Science",
+		"AR/VR",
+		"IoT"
+	];
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",

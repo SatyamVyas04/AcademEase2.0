@@ -22,7 +22,7 @@ function Login() {
                 localStorage.setItem('refreshToken', refreshToken);
 
                 console.log("Google authentication successful:", user);
-                navigate('/home');
+                navigate('/setup');
             } catch (error) {
                 console.error("Google authentication failed:", error);
             }

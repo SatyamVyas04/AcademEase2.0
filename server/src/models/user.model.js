@@ -47,15 +47,6 @@ const userSchema = new Schema(
     avatar: {
       type: String, // Cloudinary URL
     },
-    coverImage: {
-      type: String, // Cloudinary URL
-    },
-    watchHistory: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Video",
-      },
-    ],
     refreshToken: {
       type: String,
     },
