@@ -2,19 +2,29 @@ import { useState } from 'react';
 import './Login.css';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Login() {
     const navigate = useNavigate();
     const [rightPanelActive, setRightPanelActive] = useState(false);
 
     const loginAuth = useGoogleLogin({
-        onSuccess: (codeResponse) => {
-            console.log("Google authentication successful:", codeResponse);
-            navigate('/home');
+        onSuccess: async (tokenResponse) => {
+            try {
+                const response = await axios.post('http://localhost:8000/api/auth/google', {
+                    code: tokenResponse.code,
+                });
+
+                const { token, user } = response.data;
+                console.log('Google authentication successful:', user);
+                // handle successful login
+            } catch (error) {
+                console.error('Google authentication failed:', error.response.data.message || error.message);
+            }
         },
         flow: 'auth-code',
     });
-    
+
     const handleSignUpClick = () => {
         setRightPanelActive(true);
     };

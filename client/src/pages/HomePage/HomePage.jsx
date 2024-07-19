@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import { googleLogout } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ const HomePage = () => {
 
     const logoutAuth = () => {
         googleLogout();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         navigate('/');
     };
 
