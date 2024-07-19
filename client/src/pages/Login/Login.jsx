@@ -34,7 +34,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div id = "loginForm">
             <div className={`custom-container ${rightPanelActive ? 'right-panel-active' : ''}`} id="container">
                 <div className="form-container sign-up-container">
                     <form action="#">
