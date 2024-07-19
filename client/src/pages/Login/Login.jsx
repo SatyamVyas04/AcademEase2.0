@@ -17,6 +17,7 @@ function Login() {
 
                 const { token, user } = response.data;
                 console.log('Google authentication successful:', user);
+                navigate('/home')
                 // handle successful login
             } catch (error) {
                 console.error('Google authentication failed:', error.response.data.message || error.message);
