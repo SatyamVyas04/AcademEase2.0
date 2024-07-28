@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import authRoutes from './routes/authRoutes.js';
+import postRoutes from './routes/postRoutes.js';
 import config from './config.js';
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(cookieParser());
 //   .catch(err => console.log('MongoDB connection error: ', err));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 // const PORT = process.env.PORT || 8000;
 
