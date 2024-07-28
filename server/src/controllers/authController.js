@@ -24,16 +24,17 @@ export const googleAuth = async (req, res) => {
         Authorization: `Bearer ${id_token}`,
       },
     });
-
+   
     const { email, name, picture } = response.data;
-
+  
     let user = await User.findOne({ email });
-
+  
     if (!user) {
       user = new User({ email, username: name, avatar: picture });
       await user.save();
+      
     }
-
+  
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
     user.refreshToken = refreshToken;
