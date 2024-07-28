@@ -2,58 +2,90 @@ import { useState } from "react";
 import image from "../../assets/AcademEaseBlue.svg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SetupPage = () => {
+    var localStorageData = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    
+    const userData = localStorageData || {};
 
-	const academicInterests = [
-		"REACT",
-		"MERN",
-		"Nodejs",
-		"NEXTjs",
-		"AI/ML",
-		"Cyber Security",
-		"Blockchain",
-		"Cloud computing",
-		"Robotics",
-		"Data Science",
-		"AR/VR",
-		"IoT"
-	];
+    const navigate = useNavigate();
+    const academicInterestsList = [
+        "REACT",
+        "MERN",
+        "Nodejs",
+        "NEXTjs",
+        "AI/ML",
+        "Cyber Security",
+        "Blockchain",
+        "Cloud computing",
+        "Robotics",
+        "Data Science",
+        "AR/VR",
+        "IoT"
+    ];
 
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phoneNumber: "",
-        year: "",
-        college: "",
-        program: "",
-        cgpa: "",
-        academicInterests: "",
-        goals: "",
-        password: "",
+        name: userData.username || userData.name || '',
+        email: userData.email || '',
+        phone: userData.phone || '',
+        year: userData.year || '',
+        college: userData.college || '',
+        program: userData.program || '',
+        cgpa: userData.cgpa || '',
+        academicInterests: userData.academicInterests || [],
+        goals: userData.goals || '',
+        password: userData.password || ''
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
+        const { name, value, type, checked } = e.target;
 
-    const handleSubmit = (e) => {
+        if (type === 'checkbox') {
+            let updatedInterests = [...formData.academicInterests];
+            if (checked) {
+                updatedInterests.push(value);
+            } else {
+                updatedInterests = updatedInterests.filter(interest => interest !== value);
+            }
+            setFormData((prevState) => ({
+                ...prevState,
+                academicInterests: updatedInterests
+            }));
+        } else {
+            setFormData((prevState) => ({
+                ...prevState,
+                [name]: value,
+            }));
+        }
+    };
+    
+    const handleSubmit = async(e) => {
         e.preventDefault();
+        try{
+            const response = await axios.post('http://localhost:8000/setup/submit', formData);
+            if(response){
+                console.log(response);
+                navigate("/home")
+            }
+            
+        }
+        catch(error){
+            console.log("Details update failed: ", error);
+        }
+        localStorage.setItem('currentUser', JSON.stringify(formData));
         console.log(formData);
-        // Handle form submission logic here
     };
 
-
-	const [selectedYear, setSelectedYear] = useState(null);
+    const [selectedYear, setSelectedYear] = useState(null);
 
     const handleYearChange = (date) => {
         setSelectedYear(date);
-        // Update formData.year accordingly
-        formData.year = date.getFullYear();
+        setFormData((prevState) => ({
+            ...prevState,
+            year: date.getFullYear()
+        }));
     };
 
     return (
@@ -135,22 +167,22 @@ const SetupPage = () => {
                     </div>
 
                     <div className="col-span-1">
-						<label
-							htmlFor="year"
-							className="block text-sm font-medium text-gray-700"
-						>
-							Year of passing
-						</label>
-						<div className="mt-1">
-							<DatePicker
-								selected={selectedYear}
-								onChange={handleYearChange}
-								showYearPicker
-								dateFormat="yyyy"
-								className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-							/>
-						</div>
-					</div>
+                        <label
+                            htmlFor="year"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Year of passing
+                        </label>
+                        <div className="mt-1">
+                            <DatePicker
+                                selected={selectedYear}
+                                onChange={handleYearChange}
+                                showYearPicker
+                                dateFormat="yyyy"
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
 
                     <div className="col-span-1">
                         <label
@@ -197,13 +229,13 @@ const SetupPage = () => {
                                 onChange={handleChange}
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
-								<option value="">Select Program</option>
+                                <option value="">Select Program</option>
                                 <option value="program1">B.Tech</option>
                                 <option value="program2">M.Tech</option>
                                 <option value="program3">MCA</option>
                                 <option value="program4">BSC</option>
                                 <option value="program5">MSC</option>
-							</select>
+                            </select>
                         </div>
                     </div>
 
@@ -212,14 +244,16 @@ const SetupPage = () => {
                             htmlFor="cgpa"
                             className="block text-sm font-medium text-gray-700"
                         >
-                            CGPA (Optional)
+                            CGPA
                         </label>
                         <div className="mt-1">
                             <input
                                 id="cgpa"
                                 name="cgpa"
-                                type="text"
+                                type="number"
+                                step="0.01"
                                 autoComplete="cgpa"
+                                required
                                 value={formData.cgpa}
                                 onChange={handleChange}
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -233,25 +267,25 @@ const SetupPage = () => {
                                 Academic interests
                             </legend>
                             <div className="mt-2 grid grid-cols-6 gap-2">
-							{academicInterests.map((interest, index) => (
-								<div
-									key={index}
-									className="flex items-center"
-								>
-									<input
-										id={`interest${index + 1}`}
-										name="interests"
-										type="checkbox"
-										className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-									/>
-									<label
-										htmlFor={`interest${index + 1}`}
-										className="ml-2 block text-sm text-gray-900"
-									>
-										{interest}
-									</label>
-								</div>
-							))}
+                                {academicInterestsList.map((interest, index) => (
+                                    <div key={index} className="flex items-center">
+                                        <input
+                                            id={`interest${index + 1}`}
+                                            name="academicInterests"
+                                            type="checkbox"
+                                            value={interest}
+                                            checked={formData.academicInterests.includes(interest)}
+                                            onChange={handleChange}
+                                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                        />
+                                        <label
+                                            htmlFor={`interest${index + 1}`}
+                                            className="ml-2 block text-sm text-gray-900"
+                                        >
+                                            {interest}
+                                        </label>
+                                    </div>
+                                ))}
                             </div>
                         </fieldset>
                     </div>
@@ -275,15 +309,14 @@ const SetupPage = () => {
                             >
                                 <option value="">Select Goals</option>
                                 <option value="placement">Placement</option>
-                                <option value="higher_study">
-                                    Higher Study
-                                </option>
+                                <option value="higher_study">Higher Study</option>
                             </select>
                         </div>
                     </div>
+
                     <div className="col-span-1">
                         <label
-                            htmlFor="name"
+                            htmlFor="password"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Password
@@ -293,15 +326,15 @@ const SetupPage = () => {
                                 id="password"
                                 name="password"
                                 type="password"
-                                autoComplete="password"
+                                autoComplete="current-password"
                                 required
-                                hidden
                                 value={formData.password}
                                 onChange={handleChange}
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
                         </div>
                     </div>
+
                     <div className="col-span-3 sm:col-span-3">
                         <button
                             type="submit"

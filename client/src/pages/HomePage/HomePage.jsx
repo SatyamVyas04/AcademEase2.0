@@ -9,6 +9,7 @@ const HomePage = () => {
         googleLogout();
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('currentUser');
         navigate('/');
     };
 

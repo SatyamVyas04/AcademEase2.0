@@ -16,10 +16,12 @@ function Login() {
                 });
 
                 const { accessToken, refreshToken, user } = response.data;
-
+                console.log(user)
+                localStorage.removeItem('persist:root');
                 // Store tokens in local storage or cookies
                 localStorage.setItem('accessToken', accessToken);
                 localStorage.setItem('refreshToken', refreshToken);
+                localStorage.setItem('currentUser', JSON.stringify(user));
 
                 console.log("Google authentication successful:", user);
                 navigate('/setup');

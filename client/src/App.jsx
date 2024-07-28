@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Login, SetupPage } from "./pages";
+import { HomePage, Login, SetupPage } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ProfilePage from "./pages/pfp/ProfilePage";
 
@@ -14,6 +14,7 @@ function App() {
                         <Route path="/" element={<Login />} />
                         <Route path="/setup" element={<SetupPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/home" element={<HomePage />} />
                     </Routes>
                 </div>
             </Router>
