@@ -17,7 +17,7 @@ router.get("/posts/:postId", getPostById);
 
 // Protected routes (require authentication)
 
-router.post("/posts", upload.array("notes", 5), createPost);
+router.post("/upload", upload.array("notes", 5), createPost);
 router.patch("/posts/:postId", upload.array("notes", 5), updatePost);
 router.delete("/posts/:postId", deletePost);
 router.patch("/posts/:postId/toggle-publish", togglePublishStatus);

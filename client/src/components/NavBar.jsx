@@ -21,6 +21,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
 import image from "../assets/AELogo.svg";
+import PostUploadCard from "../components/post/PostUploadCard";
 
 const user = {
 	name: "Chelsea Hagon",
@@ -101,7 +102,7 @@ export default function Example() {
 												<input
 													id="search"
 													name="search"
-													className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+													className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
 													placeholder="Search"
 													type="search"
 												/>
@@ -111,7 +112,7 @@ export default function Example() {
 								</div>
 								<div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
 									{/* Mobile menu button */}
-									<Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-orange-500">
+									<Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500">
 										<span className="sr-only">
 											Open menu
 										</span>
@@ -131,7 +132,7 @@ export default function Example() {
 								<div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
 									<a
 										href="#"
-										className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+										className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
 									>
 										<span className="sr-only">
 											View notifications
@@ -148,7 +149,7 @@ export default function Example() {
 										className="flex-shrink-0 relative ml-5"
 									>
 										<div>
-											<Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+											<Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
 												<span className="sr-only">
 													Open user menu
 												</span>
@@ -193,12 +194,9 @@ export default function Example() {
 										</Transition>
 									</Menu>
 
-									<a
-										href="#"
-										className="ml-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
-									>
-										New Post
-									</a>
+									<div className="ml-6">
+										<PostUploadCard></PostUploadCard>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -247,7 +245,7 @@ export default function Example() {
 									</div>
 									<button
 										type="button"
-										className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+										className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
 									>
 										<span className="sr-only">
 											View notifications
