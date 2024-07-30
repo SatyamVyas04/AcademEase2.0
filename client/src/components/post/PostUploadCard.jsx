@@ -38,11 +38,10 @@ export default function DialogDemo() {
 		formData.append("title", title);
 		formData.append("description", description);
 		formData.append("tags", tags);
-		const notes = [];
+
 		files.forEach((file) => {
-			notes.push(file);
+			formData.append("notes[]", file);
 		});
-		formData.append("notes", notes);
 
 		console.log(formData);
 
@@ -125,9 +124,12 @@ export default function DialogDemo() {
 									type="file"
 									multiple
 									onChange={(e) =>
-										setFiles([...files, e.target.value])
+										setFiles([
+											...files,
+											...Array.from(e.target.files),
+										])
 									}
-								></Input>
+								/>
 							</div>
 						</div>
 						<div className="grid grid-cols-4 items-center gap-4">

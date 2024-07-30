@@ -142,6 +142,9 @@ export default function Example() {
 									</div>
 								</div>
 								<div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
+									<div className="mr-4">
+										<PostUploadCard></PostUploadCard>
+									</div>
 									{/* Mobile menu button */}
 									<Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500">
 										<span className="sr-only">
