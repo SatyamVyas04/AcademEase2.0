@@ -13,9 +13,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
-import { FileUploaderSingleUpload } from "../FileUploaderSingleUpload";
-import { useToast } from "@/components/ui/use-toast";
 import axios from "../axiosInstance";
+import { Toaster, toast } from "sonner";
 
 export default function DialogDemo() {
 	const [title, setTitle] = useState("");
@@ -23,7 +22,14 @@ export default function DialogDemo() {
 	const [tags, setTags] = useState("");
 	const [isPublished, setIsPublished] = useState(true);
 	const [files, setFiles] = useState([]);
-	const { toast } = useToast();
+
+	const resetForm = () => {
+		setTitle("");
+		setDescription("");
+		setTags("");
+		setFiles([]);
+		setIsPublished(true);
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -32,10 +38,13 @@ export default function DialogDemo() {
 		formData.append("title", title);
 		formData.append("description", description);
 		formData.append("tags", tags);
-
+		const notes = [];
 		files.forEach((file) => {
-			formData.append("notes", file);
+			notes.push(file);
 		});
+		formData.append("notes", notes);
+
+		console.log(formData);
 
 		try {
 			const response = await axios.post("/api/posts/upload", formData, {
@@ -45,35 +54,20 @@ export default function DialogDemo() {
 			});
 
 			if (response.status === 201) {
-				toast({
-					title: "Success",
-					description:
-						response.data.message || "Post created successfully",
-					variant: "success",
-				});
-
-				// Reset form
-				setTitle("");
-				setDescription("");
-				setTags("");
-				setFiles([]);
-				setIsPublished(true);
+				toast.success("New Post Added");
+				resetForm();
 			}
 		} catch (error) {
-			console.error("Error creating post:", error);
-
-			toast({
-				title: "Error",
-				description:
-					error.response?.data?.message ||
-					"Failed to create post. Please try again.",
-				variant: "destructive",
+			toast.error("Error creating Post", {
+				description: error.message,
 			});
+			console.error("Error creating post:", error);
 		}
 	};
 
 	return (
 		<Dialog>
+			<Toaster richColors />
 			<DialogTrigger asChild>
 				<Button variant="default">New Post</Button>
 			</DialogTrigger>
@@ -127,9 +121,13 @@ export default function DialogDemo() {
 								Notes
 							</Label>
 							<div className="col-span-3">
-								<FileUploaderSingleUpload
-									onChange={(files) => setFiles(files)}
-								/>
+								<Input
+									type="file"
+									multiple
+									onChange={(e) =>
+										setFiles([...files, e.target.value])
+									}
+								></Input>
 							</div>
 						</div>
 						<div className="grid grid-cols-4 items-center gap-4">

@@ -96,8 +96,11 @@ const createPost = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Title and description are required");
     }
 
-    const notesFiles = req.files?.notes;
+    const notesFiles = req.files;
     const notes = [];
+
+    console.log(req.files);
+    console.log(req.body);
 
     try {
         if (notesFiles && notesFiles.length > 0) {
