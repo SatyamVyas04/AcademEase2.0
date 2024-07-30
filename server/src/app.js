@@ -3,25 +3,25 @@ import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-import authRoutes from './routes/authRoutes.js';
-import postRoutes from './routes/postRoutes.js';
-import config from './config.js';
+import authRoutes from "./routes/authRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
+import config from "./config.js";
 
 dotenv.config();
 
 const app = express();
 
 app.use(
-  cors({
-    origin: config.corsOrigin.split(','), // Allow multiple origins if needed
-    credentials: true,
-  })
+    cors({
+        origin: "*", // Allow multiple origins if needed
+        credentials: true,
+    })
 );
 
-app.use((req, res, next) => {
-    res.setHeader('Cross-Origin-Opener-Policy', 'cross-origin-allow-popups');
-    next();
-});
+// app.use((req, res, next) => {
+//     res.setHeader('Cross-Origin-Opener-Policy', 'cross-origin-allow-popups');
+//     next();
+// });
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
@@ -35,8 +35,8 @@ app.use(cookieParser());
 //   .then(() => console.log('MongoDB connected'))
 //   .catch(err => console.log('MongoDB connection error: ', err));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/posts', postRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
 
 // const PORT = process.env.PORT || 8000;
 

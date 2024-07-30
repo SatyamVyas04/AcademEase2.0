@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
 import image from "../assets/AELogo.svg";
 import PostUploadCard from "../components/post/PostUploadCard";
+import axios from "./axiosInstance";
 
 const user = {
 	name: "Chelsea Hagon",
@@ -43,10 +44,40 @@ function classNames(...classes) {
 export default function Example() {
 	const navigate = useNavigate();
 
-	const logoutAuth = () => {
+	const getCookie = (name) => {
+		const value = `; ${document.cookie}`;
+		const parts = value.split(`; ${name}=`);
+		if (parts.length === 2) return parts.pop().split(";").shift();
+	};
+
+	const deleteCookie = (name) => {
+		document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax;`;
+	};
+
+	const logoutAuth = async () => {
 		googleLogout();
-		localStorage.removeItem("accessToken");
-		localStorage.removeItem("refreshToken");
+
+		try {
+			const accessToken = getCookie("accessToken");
+
+			const response = await axios.post(
+				"/api/auth/logout",
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			console.log("Response", response);
+			deleteCookie("accessToken");
+			deleteCookie("refreshToken");
+			navigate("/setup");
+		} catch (error) {
+			console.error(error);
+		}
+
 		navigate("/");
 	};
 

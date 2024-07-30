@@ -8,6 +8,7 @@ import {
     togglePublishStatus,
 } from "../controllers/postController.js";
 import { upload } from "../middlewares/multer.middleware.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.get("/posts", getAllPosts);
 router.get("/posts/:postId", getPostById);
 
 // Protected routes (require authentication)
+router.use(verifyJWT);
 
 router.post("/upload", upload.array("notes", 5), createPost);
 router.patch("/posts/:postId", upload.array("notes", 5), updatePost);
