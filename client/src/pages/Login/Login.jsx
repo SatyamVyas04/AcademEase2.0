@@ -18,6 +18,13 @@ function Login() {
 				console.log(response);
 
 				const { refreshToken, accessToken, user } = response.data.data;
+                const { accessToken, refreshToken, user } = response.data;
+                console.log(user)
+                localStorage.removeItem('persist:root');
+                // Store tokens in local storage or cookies
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+                localStorage.setItem('currentUser', JSON.stringify(user));
 
 				// Manually set cookies on the frontend
 				document.cookie = `accessToken=${accessToken}; path=/;`;

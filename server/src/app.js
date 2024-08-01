@@ -6,6 +6,9 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import config from "./config.js";
+import config from './config.js';
+import authRouter from "./routes/authRoutes.js";
+import setupRouter from "./routes/setupRoutes.js";
 
 dotenv.config();
 
@@ -37,6 +40,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+
 
 // const PORT = process.env.PORT || 8000;
 

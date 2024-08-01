@@ -8,7 +8,6 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
-      // unique: true,
       lowercase: true,
       trim: true,
       index: true,
@@ -45,7 +44,7 @@ const userSchema = new Schema(
       type: [String],
     },
     avatar: {
-      type: String, // Cloudinary URL
+      type: String,
     },
     refreshToken: {
       type: String,

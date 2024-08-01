@@ -50,6 +50,14 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
+    const logoutAuth = () => {
+        googleLogout();
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('currentUser');
+        navigate('/');
+    };
+
 export default function HomePage() {
 	return (
 		<main className="lg:col-span-10">
