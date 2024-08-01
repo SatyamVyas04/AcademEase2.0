@@ -16,7 +16,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Login />} />
 						<Route path="/setup" element={<SetupPage />} />
-						<Route path="/profile" element={<ProfilePage />} />
+						<Route path="/profile" element={<HomePageWrapper><ProfilePage /></HomePageWrapper>} />
 						<Route
 							path="/home"
 							element={
@@ -37,7 +37,7 @@ function HomePageWrapper({ children, requests, setRequests }) {
 		<div className="bg-gray-100 min-h-full">
 			<NavBar requests={requests} setRequests={setRequests} />
 			<div className="py-10">
-				<div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
+				<div className="max-w-3xl mx-auto sm:px-6 lg:max-w-[100dvw] lg:px-16 lg:grid lg:grid-cols-12 lg:gap-8">
 					<Sidebar />
 					{children}
 				</div>

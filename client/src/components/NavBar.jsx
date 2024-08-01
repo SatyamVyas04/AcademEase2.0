@@ -20,7 +20,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from "@react-oauth/google";
-import image from "../assets/AELogo.svg";
+import image from "../assets/AcademEaseRed.svg";
 import PostUploadCard from "../components/post/PostUploadCard";
 import axios from "./axiosInstance";
 
