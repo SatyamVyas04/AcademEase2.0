@@ -96,22 +96,25 @@ const createPost = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Title and description are required");
     }
 
-    const notesFiles = req.files;
     const notes = [];
+    const noteKeys = ["notes1", "notes2", "notes3", "notes4", "notes5"];
 
     console.log(req.files);
     console.log(req.body);
 
     try {
-        if (notesFiles && notesFiles.length > 0) {
-            for (const file of notesFiles) {
-                const fileType = file.mimetype.startsWith("application/pdf")
-                    ? "pdf"
-                    : "image";
+        // Process each note file
+        for (const key of noteKeys) {
+            if (req.files && req.files[key]) {
+                const file = req.files[key][0];
+                // console.log(file);
+                const fileType =
+                    file.mimetype === "application/pdf" ? "pdf" : "image";
                 const uploadedFile = await uploadOnCloudinary(
                     file.path,
                     fileType
                 );
+                console.log(uploadedFile);
                 if (uploadedFile) {
                     notes.push({
                         type: fileType,

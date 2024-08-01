@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.model.js";
 
@@ -31,4 +32,8 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
             error?.message || "Something went wrong verifying JWT"
         );
     }
+});
+
+export const getCurrentUser = asyncHandler(async (req, res, next) => {
+    return res.status(200, new ApiResponse(req.user));
 });

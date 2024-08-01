@@ -18,10 +18,6 @@ const uploadOnCloudinary = async (localFilePath, fileType) => {
             resource_type: "auto",
         };
 
-        if (fileType === "pdf") {
-            uploadOptions.resource_type = "raw";
-        }
-
         // Upload on Cloudinary
         const response = await cloudinary.uploader.upload(
             localFilePath,
@@ -49,9 +45,7 @@ const deleteFromCloudinary = async (fileLink) => {
 
         // Determine resource type
         let resourceType = "image";
-        if (fileLink.includes("/raw/upload/")) {
-            resourceType = "raw";
-        } else if (fileLink.includes("/video/")) {
+        if (fileLink.includes("/video/")) {
             resourceType = "video";
         }
 

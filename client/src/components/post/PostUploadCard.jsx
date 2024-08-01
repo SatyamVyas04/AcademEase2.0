@@ -22,13 +22,25 @@ export default function DialogDemo() {
 	const [description, setDescription] = useState("");
 	const [tags, setTags] = useState("");
 	const [isPublished, setIsPublished] = useState(true);
-	const [files, setFiles] = useState([]);
+	const [notes, setNotes] = useState({
+		notes1: null,
+		notes2: null,
+		notes3: null,
+		notes4: null,
+		notes5: null,
+	});
 
 	const resetForm = () => {
 		setTitle("");
 		setDescription("");
 		setTags("");
-		setFiles([]);
+		setNotes({
+			notes1: null,
+			notes2: null,
+			notes3: null,
+			notes4: null,
+			notes5: null,
+		});
 		setIsPublished(true);
 	};
 
@@ -41,8 +53,10 @@ export default function DialogDemo() {
 		formData.append("tags", tags);
 		formData.append("isPublished", isPublished);
 
-		files.forEach((file) => {
-			formData.append("notes[]", file);
+		Object.entries(notes).forEach(([key, file]) => {
+			if (file) {
+				formData.append(key, file);
+			}
 		});
 
 		try {
@@ -63,6 +77,11 @@ export default function DialogDemo() {
 			});
 			console.error("Error creating post:", error);
 		}
+	};
+
+	const handleFileChange = (e, noteKey) => {
+		const file = e.target.files[0];
+		setNotes((prev) => ({ ...prev, [noteKey]: file }));
 	};
 
 	return (
@@ -124,20 +143,30 @@ export default function DialogDemo() {
 								placeholder="Enter tags separated by commas"
 							/>
 						</div>
-						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="notes" className="text-right">
-								Notes
-							</Label>
-							<div className="col-span-3">
-								<Input
-									type="file"
-									multiple
-									onChange={(e) =>
-										setFiles(Array.from(e.target.files))
-									}
-								/>
-							</div>
-						</div>
+						{["notes1", "notes2", "notes3", "notes4", "notes5"].map(
+							(noteKey) => (
+								<div
+									key={noteKey}
+									className="grid grid-cols-4 items-center gap-4"
+								>
+									<Label
+										htmlFor={noteKey}
+										className="text-right"
+									>
+										{noteKey}
+									</Label>
+									<div className="col-span-3">
+										<Input
+											type="file"
+											id={noteKey}
+											onChange={(e) =>
+												handleFileChange(e, noteKey)
+											}
+										/>
+									</div>
+								</div>
+							)
+						)}
 						<div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="isPublished" className="text-right">
 								Publish
