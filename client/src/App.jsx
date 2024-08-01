@@ -4,7 +4,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import NavBar from "./components/NavBar";
 import Sidebar from "./components/SideNav";
 import ProfilePage from "./pages/pfp/ProfilePage";
-import HomePage from "./pages/HomePage/HomePage";
 
 const clientIdAuth = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 

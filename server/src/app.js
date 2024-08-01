@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import config from "./config.js";
 import config from './config.js';
 import authRouter from "./routes/authRoutes.js";
 import setupRouter from "./routes/setupRoutes.js";
