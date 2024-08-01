@@ -17,6 +17,7 @@ import axios from "../axiosInstance";
 import { Toaster, toast } from "sonner";
 
 export default function DialogDemo() {
+	const [open, setOpen] = useState(false);
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [tags, setTags] = useState("");
@@ -38,12 +39,11 @@ export default function DialogDemo() {
 		formData.append("title", title);
 		formData.append("description", description);
 		formData.append("tags", tags);
+		formData.append("isPublished", isPublished);
 
 		files.forEach((file) => {
 			formData.append("notes[]", file);
 		});
-
-		console.log(formData);
 
 		try {
 			const response = await axios.post("/api/posts/upload", formData, {
@@ -55,6 +55,7 @@ export default function DialogDemo() {
 			if (response.status === 201) {
 				toast.success("New Post Added");
 				resetForm();
+				setOpen(false);
 			}
 		} catch (error) {
 			toast.error("Error creating Post", {
@@ -65,7 +66,15 @@ export default function DialogDemo() {
 	};
 
 	return (
-		<Dialog>
+		<Dialog
+			open={open}
+			onOpenChange={(newOpen) => {
+				if (!newOpen) {
+					resetForm();
+				}
+				setOpen(newOpen);
+			}}
+		>
 			<Toaster richColors />
 			<DialogTrigger asChild>
 				<Button variant="default">New Post</Button>
@@ -124,10 +133,7 @@ export default function DialogDemo() {
 									type="file"
 									multiple
 									onChange={(e) =>
-										setFiles([
-											...files,
-											...Array.from(e.target.files),
-										])
+										setFiles(Array.from(e.target.files))
 									}
 								/>
 							</div>

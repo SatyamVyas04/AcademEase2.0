@@ -31,10 +31,10 @@ const user = {
 		"https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-	{ name: "Dashboard", href: "#", current: true },
-	{ name: "Calendar", href: "#", current: false },
-	{ name: "Teams", href: "#", current: false },
-	{ name: "Directory", href: "#", current: false },
+	{ name: "Home", href: "#", current: true },
+	{ name: "Chat", href: "#", current: false },
+	{ name: "Connect", href: "#", current: false },
+	{ name: "Schedule", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -82,7 +82,7 @@ export default function Example() {
 	};
 
 	const userNavigation = [
-		{ name: "Your Profile", href: "#", method: null },
+		{ name: "Your Profile", href: "/profile", method: null },
 		{ name: "Settings", href: "#", method: null },
 		{ name: "Sign out", href: "#", method: logoutAuth },
 	];
