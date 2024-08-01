@@ -1,86 +1,69 @@
 // import React from "react";
 
-function ProfileCard() {
-	return (
-		<div className="flex flex-col justify-start items-start p-8 gap-3">
-			<div className="flex flex-row justify-center items-center gap-2">
-				<div>
-					<img
-						className="h-14 w-14 rounded-xl"
-						src="https://images.unsplash.com/photo-1721048149858-139c52892fc9?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-						alt="pfpic"
-					/>
-				</div>
-				<div className="flex flex-col justify-center">
-					<h1 className="text-2xl font-bold">Nishita Panchal</h1>
-					<p>MERN Stack Developer</p>
-				</div>
-			</div>
-			{/* description */}
-			<div>
-				<p>
-					I am a sophomore. Lorem ipsum dolor sit amet, consectetur
-					adipisicing elit. Quisquam et ipsa enim dolores architecto
-					commodi hic ea{" "}
-				</p>
-			</div>
-			{/* socials */}
-			<div className="flex flex-row justify-center items-center gap-7">
-				<ion-icon
-					style={{
-						fontSize: "24px",
-						backgroundColor: "hsl(var(--primary))",
-						padding: "4px",
-						color: "white",
-						borderRadius: "4px",
-					}}
-					name="logo-linkedin"
-				></ion-icon>
-				<ion-icon
-					style={{
-						fontSize: "24px",
-						backgroundColor: "hsl(var(--primary))",
-						padding: "4px",
-						color: "white",
-						borderRadius: "4px",
-					}}
-					name="logo-github"
-				></ion-icon>
-				<ion-icon
-					style={{
-						fontSize: "24px",
-						backgroundColor: "hsl(var(--primary))",
-						padding: "4px",
-						color: "white",
-						borderRadius: "4px",
-					}}
-					name="logo-instagram"
-				>
-					{" "}
-				</ion-icon>
-				<ion-icon
-					style={{
-						fontSize: "24px",
-						backgroundColor: "hsl(var(--primary))",
-						padding: "4px",
-						color: "white",
-						borderRadius: "4px",
-					}}
-					name="mail-outline"
-				></ion-icon>
-				<ion-icon
-					style={{
-						fontSize: "24px",
-						backgroundColor: "hsl(var(--primary))",
-						padding: "4px",
-						color: "white",
-						borderRadius: "4px",
-					}}
-					name="ellipsis-horizontal-outline"
-				></ion-icon>
-			</div>
-		</div>
-	);
+function SocialIcon({ name, link }) {
+    return (
+        <a
+            href={link || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer"
+        >
+            <ion-icon
+                style={{
+                    fontSize: "24px",
+                    backgroundColor: "hsl(var(--primary))",
+                    padding: "4px",
+                    color: "white",
+                    borderRadius: "4px",
+                }}
+                name={name}
+            ></ion-icon>
+        </a>
+    );
+}
+
+function ProfileCard({ user }) {
+    const {
+        avatar,
+        username,
+        email,
+        academicInterests,
+        college,
+        goals,
+        cgpa,
+        passoutYear,
+        phoneNo,
+        program,
+        description,
+        Social_linkedIn,
+        Social_instagram,
+    } = user || {};
+    return (
+        <div className="flex flex-col justify-start items-start p-6 gap-3">
+            <div className="flex flex-row justify-center items-center gap-3">
+                <div>
+                    <img
+                        className=" w-[70px] rounded-xl"
+                        src={avatar}
+                        alt="pfpic"
+                    />
+                </div>
+                <div className="flex flex-col justify-center">
+                    <h1 className="text-xl font-bold">{username}</h1>
+                    <p className="text-sm">{college}</p>
+                </div>
+            </div>
+            {/* description */}
+            <div>{description}</div>
+            {/* socials */}
+            <div className="flex flex-row justify-center items-center gap-7">
+                <SocialIcon name="logo-linkedin" link={Social_linkedIn} />
+                <SocialIcon name="logo-instagram" link={Social_instagram} />
+                <SocialIcon name="mail-outline" link={`mailto:${email}`} />
+                <SocialIcon name="ellipsis-horizontal-outline" link="#" />
+            </div>
+        </div>
+    );
 }
 
 export default ProfileCard;

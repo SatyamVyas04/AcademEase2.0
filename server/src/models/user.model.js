@@ -22,6 +22,15 @@ const userSchema = new Schema(
     password: {
       type: String,
     },
+    description:{
+      type : String
+    },
+    Social_instagram : {
+      type: String
+    }, 
+    Social_linkedIn : {
+      type: String
+    }, 
     passoutYear: {
       type: String,
     },

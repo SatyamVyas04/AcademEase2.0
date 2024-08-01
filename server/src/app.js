@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import config from './config.js';
-import authRouter from "./routes/authRoutes.js";
 import setupRouter from "./routes/setupRoutes.js";
 
 dotenv.config();
@@ -38,6 +37,7 @@ app.use(cookieParser());
 //   .catch(err => console.log('MongoDB connection error: ', err));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/setup", setupRouter);
 app.use("/api/posts", postRoutes);
 
 

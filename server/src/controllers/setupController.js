@@ -10,7 +10,10 @@ export const setSetupData = async (req, res) => {
         program,
         cgpa,
         academicInterests,
-        goals
+        goals,
+        description,
+        Social_instagram, 
+        Social_linkedIn
     } = req.body;
 
     try {
@@ -23,6 +26,7 @@ export const setSetupData = async (req, res) => {
 
         // Update user fields
         user.username = name;
+        user.email = email;
         user.phoneNo = phone;
         user.passoutYear = year;
         user.college = college;
@@ -30,7 +34,9 @@ export const setSetupData = async (req, res) => {
         user.cgpa = cgpa;
         user.academicInterests = academicInterests;
         user.goals = goals;
-
+        user.description = description;
+        user.Social_instagram = Social_instagram;
+        user.Social_linkedIn = Social_linkedIn;
         // Save the updated user data
         await user.save();
 

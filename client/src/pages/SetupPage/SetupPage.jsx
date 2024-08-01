@@ -2,12 +2,12 @@ import { useState } from "react";
 import image from "../../assets/AcademEaseBlue.svg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from "axios";
+import axios from "@/components/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
 const SetupPage = () => {
     var localStorageData = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    
+    console.log(localStorageData)
     const userData = localStorageData || {};
 
     const navigate = useNavigate();
@@ -28,7 +28,8 @@ const SetupPage = () => {
 
     const [formData, setFormData] = useState({
         name: userData.username || userData.name || '',
-        email: userData.email || '',
+        email: userData.email || '', 
+        description: userData.description || '',
         phone: userData.phone || '',
         year: userData.year || '',
         college: userData.college || '',
@@ -36,7 +37,8 @@ const SetupPage = () => {
         cgpa: userData.cgpa || '',
         academicInterests: userData.academicInterests || [],
         goals: userData.goals || '',
-        password: userData.password || ''
+        Social_instagram: userData.Social_instagram || '',
+        Social_linkedIn: userData.Social_linkedIn || ''
     });
 
     const handleChange = (e) => {
@@ -64,7 +66,7 @@ const SetupPage = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-            const response = await axios.post('http://localhost:8000/setup/submit', formData);
+            const response = await axios.post('/api/setup/submit', formData);
             if(response){
                 console.log(response);
                 navigate("/home")
@@ -147,6 +149,27 @@ const SetupPage = () => {
 
                     <div className="col-span-1">
                         <label
+                            htmlFor="description"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Description
+                        </label>
+                        <div className="mt-1">
+                            <input
+                                id="description"
+                                name="description"
+                                type="text"
+                                autoComplete="description"
+                                required
+                                value={formData.description}
+                                onChange={handleChange}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-span-1">
+                        <label
                             htmlFor="phone"
                             className="block text-sm font-medium text-gray-700"
                         >
@@ -202,12 +225,12 @@ const SetupPage = () => {
                                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                                 <option value="">Select College</option>
-                                <option value="college1">Sardar Patel Institute of Technology</option>
-                                <option value="college2">SVKMs Dwarkadas J. Sanghvi College of Engineering</option>
-                                <option value="college3">Thadomal Shahani Engineering College</option>
-                                <option value="college4">Thakur College of Engineering and Technology</option>
-                                <option value="college5">Veermata Jijabai Technological Institute</option>
-                                <option value="college6">K. J. Somaiya College of Engineering</option>
+                                <option value="Sardar Patel Institute of Technology">Sardar Patel Institute of Technology</option>
+                                <option value="SVKMs Dwarkadas J. Sanghvi College of Engineering">SVKMs Dwarkadas J. Sanghvi College of Engineering</option>
+                                <option value="Thadomal Shahani Engineering College">Thadomal Shahani Engineering College</option>
+                                <option value="Thakur College of Engineering and Technology">Thakur College of Engineering and Technology</option>
+                                <option value="Veermata Jijabai Technological Institute">Veermata Jijabai Technological Institute</option>
+                                <option value="K. J. Somaiya College of Engineering">K. J. Somaiya College of Engineering</option>
                             </select>
                         </div>
                     </div>
@@ -261,6 +284,72 @@ const SetupPage = () => {
                         </div>
                     </div>
 
+                    <div className="col-span-1">
+                        <label
+                            htmlFor="goals"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Goals
+                        </label>
+                        <div className="mt-1">
+                            <select
+                                id="goals"
+                                name="goals"
+                                autoComplete="goals"
+                                required
+                                value={formData.goals}
+                                onChange={handleChange}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            >
+                                <option value="">Select Goals</option>
+                                <option value="placement">Placement</option>
+                                <option value="higher_study">Higher Study</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="col-span-1">
+                        <label
+                            htmlFor="Social_linkedIn"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            LinkedIn profile
+                        </label>
+                        <div className="mt-1">
+                            <input
+                                id="Social_linkedIn"
+                                name="Social_linkedIn"
+                                type="text"
+                                autoComplete="Social_linkedIn"
+                                required
+                                value={formData.Social_linkedIn}
+                                onChange={handleChange}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="col-span-1">
+                        <label
+                            htmlFor="Social_instagram"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Instagram profile 
+                        </label>
+                        <div className="mt-1">
+                            <input
+                                id="Social_instagram"
+                                name="Social_instagram"
+                                type="text"
+                                autoComplete="Social_instagram"
+                                required
+                                value={formData.Social_instagram}
+                                onChange={handleChange}
+                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
                     <div className="col-span-3">
                         <fieldset>
                             <legend className="block text-sm font-medium text-gray-700">
@@ -290,50 +379,7 @@ const SetupPage = () => {
                         </fieldset>
                     </div>
 
-                    <div className="col-span-1">
-                        <label
-                            htmlFor="goals"
-                            className="block text-sm font-medium text-gray-700"
-                        >
-                            Goals
-                        </label>
-                        <div className="mt-1">
-                            <select
-                                id="goals"
-                                name="goals"
-                                autoComplete="goals"
-                                required
-                                value={formData.goals}
-                                onChange={handleChange}
-                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            >
-                                <option value="">Select Goals</option>
-                                <option value="placement">Placement</option>
-                                <option value="higher_study">Higher Study</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="col-span-1">
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-medium text-gray-700"
-                        >
-                            Password
-                        </label>
-                        <div className="mt-1">
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                autoComplete="current-password"
-                                required
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            />
-                        </div>
-                    </div>
+                    
 
                     <div className="col-span-3 sm:col-span-3">
                         <button
