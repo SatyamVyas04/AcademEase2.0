@@ -1,22 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 
-export function SkillsSection() {
+export function SkillsSection({ skills }) {
     return (
         <div className="p-8 ">
             <h1 className="text-2xl font-bold mb-4">Skills</h1>
             <div className="flex flex-wrap gap-2">
-                <Badge>C++</Badge>
-                <Badge>JavaScript</Badge>
-                <Badge>REACT</Badge>
-                <Badge>MERN</Badge>
-                <Badge>Nodejs</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
-                <Badge>AI/ML</Badge>
+                {skills && skills.length > 0 ? (
+                    skills.map((skill, index) => (
+                        <Badge key={index}>{skill}</Badge>
+                    ))
+                ) : (
+                    <p>No skills added yet.</p>
+                )}
             </div>
         </div>
     );
